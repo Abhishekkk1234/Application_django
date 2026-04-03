@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card center-box">
+    <h2 style="text-align:center;">Login</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input name="email" type="email" placeholder="Email" required>
+        <input name="password" type="password" placeholder="Password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p style="text-align:center; margin-top:10px;">
+        Don't have an account? <a href="/signup/">Signup</a>
+    </p>
+    <p style="text-align:center; margin-top:10px;">
+     <a href="/password_reset/">Forgot Password?</a>
+    </p>
+</div>
+{% endblock %}

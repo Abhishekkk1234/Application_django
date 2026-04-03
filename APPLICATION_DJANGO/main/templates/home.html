@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="top-bar">
+    <h2>Welcome, {{ request.user.first_name }}</h2>
+    <a href="/logout/"><button class="logout">Logout</button></a>
+</div>
+
+<div class="flex">
+
+    <!-- FORM -->
+    <div class="card flex-column">
+        <h3>Fill Details</h3>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <input name="name" placeholder="Name" required>
+            <input name="email" type="email" placeholder="Email" required>
+            <input name="mobile" placeholder="Mobile Number" required>
+            <textarea name="address" placeholder="Address" required></textarea>
+            <input name="country" placeholder="Country" required>
+            <input name="pincode" placeholder="Pin Code" required>
+            <input type="file" name="file" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- DATA -->
+    <div class="card flex-column">
+        <h3>Submitted Data</h3>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Download</th>
+            </tr>
+
+            {% for item in data %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.email }}</td>
+                <td>
+                    <a href="/download/{{ item.id }}">
+                        <button>PDF</button>
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No data available</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
